@@ -7,7 +7,7 @@
 ###### Creator : Joshua Cubas
 #
 #
-[Imgur](https://i.imgur.com/YCCtiwm.jpg)
+
 ### App Basic Info:
 
  - There will be site that lets users upload and view recipe ideas 
@@ -16,7 +16,9 @@
 
 
 ### Backend
-
+#
+![Imgur](https://i.imgur.com/YCCtiwm.jpg)
+#
 - will handle authentification and control users being able to login with flask-login
 - models in python will be created for 'creator' and 'recipe'
 - model for "creator" is {username: String type}
