@@ -19,13 +19,13 @@
 #
 ![Imgur](https://i.imgur.com/YCCtiwm.jpg)
 #
-- will handle authentification and control users being able to login with flask-login
-- models in python will be created for 'creator' and 'recipe'
-- model for "creator" is {username: String type}
-- model for "recipe" is { name: Strign type, ingredients: String type, directions: String type, vegan: Boolean type, gluten_free: Boolean type, creator: ForeignKey to creator of recipe }
+- Will handle authentification and control users being able to login with flask-login
+- Models in python will be created for 'creator' and 'recipe'
+- Model for "creator" is {username: String type}
+- Model for "recipe" is { name: Strign type, ingredients: String type, directions: String type, vegan: Boolean type, gluten_free: Boolean type, creator: ForeignKey to creator of recipe }
 - 'creator' and 'recipe' databases will be configured with sqlite3 tables
-- the back-end flask api will be connected to the react front-end
-- will have create, edit, update and delete routes for 'recipes'
-- will have create route for 'creators'
+- The back-end flask api will be connected to the react front-end
+- Will have create, edit, update and delete routes for 'recipes'
+- Will have create route for 'creators'
 - 'creator' password data will be encrypted with bcrypt
-- only the 'creator' associated as the creator of a given recipe can edit or delete that recipe
+- Only the 'creator' associated as the creator of a given recipe can edit or delete that recipe
