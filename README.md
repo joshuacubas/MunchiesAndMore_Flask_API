@@ -11,8 +11,8 @@
 ### App Basic Info:
 
  - There will be site that lets users upload and view recipe ideas 
- - each user will be able to  create a personal login
- - each user can create edit and delete THEIR OWN recipes 
+ - Each user will be able to  create a personal login
+ - Each user can create edit and delete THEIR OWN recipes 
 
 
 ### Backend
