@@ -18,6 +18,8 @@
 ### Backend
 #
 ![Imgur](https://i.imgur.com/YCCtiwm.jpg)
+![Imgur](https://i.imgur.com/KFwOAlw.jpg)
+
 #
 - Will handle authentification and control users being able to login with flask-login
 - Models in python will be created for 'creator' and 'recipe'
