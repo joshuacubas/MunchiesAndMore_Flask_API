@@ -9,23 +9,20 @@ from flask_login import current_user, login_required
 recipes = Blueprint('recipes','recipes')
 
 
-# @recipes.route('/', methods=['GET'])
-# @login_required
-# def all_recipes_from_logged_in_user():
-# 	"""show all recipes on the DB """
-# 	all_recipe_dicts = [model_to_dict(recipe) for recipe in models.Recipe.select()]
-# 	# for recipe_dict in current_user_recipe_dicts:
-# 	# 	recipe_dict['creator'].pop('password')
-# 	print(all_recipe_dicts)
+@recipes.route('/', methods=['GET'])
+def all_recipes():
+	"""show all recipes on the DB """
+	all_recipe_dicts = [model_to_dict(recipe) for recipe in models.Recipe.select()]
+	# for recipe_dict in current_user_recipe_dicts:
+	# 	recipe_dict['creator'].pop('password')
+	print(all_recipe_dicts)
 
-# 	return jsonify({
-# 		'data' : current_user_recipe_dicts,
-# 		'message' : f"successfully found {len(current_user_recipe_dicts)} recipes created by logged in user ",
-# 		'status' : 200
-# 	}),200
-@recipes.route('/',methods=['GET'])
-def all_recipes_from_all_users():
-	return "all the recipes route"
+	return jsonify({
+		'data' : all_recipe_dicts,
+		'message' : f"successfully found {len(all_recipe_dicts)} recipes created by all the users ",
+		'status' : 200
+	}),200
+
 
 
 
