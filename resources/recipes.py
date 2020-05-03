@@ -70,40 +70,76 @@ def add_recipe():
 @recipes.route('/<id>', methods=['DELETE'])
 @login_required
 def delete_recipe(id):
-	delete_query = models.Recipe.delete().where(models.Recipe.id == id)
-	num_of_rows_deleted=delete_query.execute()
-	print(num_of_rows_deleted)
-	return jsonify(
-		data={},
-		message=f"Successfully deleted {num_of_rows_deleted} recipes, with id {id}",
-		status = 200,
-	),200
+	"""delete logged in creator's recipe by id"""
+	try:
+		recipe_to_delete = models.Recipe.get_by_id(id)
+
+		if (recipe_to_delete.creator.id == current_user.id):
+			recipe_to_delete.delete_instance()
+
+			return jsonify(
+				data={},
+				message=f"DELETE SUCCESS. Deleted recipe with id of : {id}",
+				status=200
+			),200
+		else:
+			return jsonify(
+				data={'error':'403 Forbidden'},
+				message="User id doesnt match creator id of recipe. Creators can only delete their own added recipes"
+			),403
+	except models.DoesNotExist:
+		return jsonify(
+			data={'error':'404 Not Found'},
+			messsage = "No recipes found matching that ID",
+			status=404
+		),404
+
+
 
 @recipes.route('/<id>', methods=['PUT'])
 @login_required
 def update_recipe(id):
-	payload=request.get_json()
+	"""edit and update logged in creator's recipe by id"""
+	payload = request.get_json()
 
-	update_query = models.Recipe.update(
-		name = payload['name'],
-		creator = current_user.id,
-		ingredients = payload['ingredients'],
-		directions = payload['directions'],
-		vegan = payload['vegan'],
-		gluten_free = payload['gluten_free']
-	).where(models.Recipe.id == id)
+	recipe_to_update = models.Recipe.get_by_id(id)
+	if (recipe_to_update.creator.id == current_user.id):
+		recipe_to_update.name = payload['name']
+		recipe_to_update.ingredients = payload['ingredients']
+		recipe_to_update.directions = payload['directions']
+		recipe_to_update.vegan = payload['vegan']
+		recipe_to_update.gluten_free = payload['gluten_free']
+		recipe_to_update.save()
+		updated_recipe_dict = model_to_dict(recipe_to_update)
+		updated_recipe_dict['creator'].pop('password')
 
-	num_of_rows_changed = update_query.execute()
+		return jsonify(
+			data = updated_recipe_dict,
+			message = f"SUCCESS. Updated recipe with id of : {id}",
+			status = 200
+		),200
 
-	updated_recipe = models.Recipe.get_by_id(id)
+	else: 
+		return jsonify(
+			data = {'error':'403 Forbidden'},
+			message = "Recipe creator's id doesnt match logged in user's id. Cannot edit another user's recipes."
+		),403
 
-	updated_recipe_dict = model_to_dict(updated_recipe)
+@recipes.route('/<id>', methods=['GET'])
+def show_recipe(id):
+	recipe = models.Recipe.get_by_id(id)
+	recipe_dict = model_to_dict(recipe)
+	recipe_dict['creator'].pop('password')
 
 	return jsonify(
-		data={},
-		message=f"Successfully update recipe with id of {id}",
-		status=200
+		data = recipe_dict,
+		message = f"Found recipe (id:{id})",
+		status = 200
 	),200
+
+
+
+
 
 
 
