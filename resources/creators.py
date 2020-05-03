@@ -38,7 +38,7 @@ def registration():
 			password = pw_hash
 		) 
 
-		# print (new_creator)
+		print ("new creator:",new_creator)
 
 		login_user(new_creator)
 
@@ -56,11 +56,18 @@ def registration():
 		status = 201
 		),201
 
-@creators.route('/login',methods=['POST'])
+@creators.route('/login', methods=['POST'])
 def login():
-	payload =request.get_json()
+	payload = request.get_json()
 	payload['email'] = payload['email'].lower()
 	payload['username'] = payload['username'].lower()
+	print("payload",payload)
+	# print("payload[username]",payload['username'])
+	# print("payload[pw]",payload['password'])
+
+	# return "check terminal"
+
+
 
 	try:
 		creator = models.Creator.get(models.Creator.email == payload['email'])
@@ -92,6 +99,36 @@ def login():
 		),401
 
 
+@creators.route('/logout', methods=["GET"])
+def logout():
+	logout_user()
+	print("logout route")
+	return jsonify(
+		data={},
+		message="successfully logged out",
+		status=200
+	),200
+
+@creators.route('/logged_in', methods=['GET'])
+def logged_in():
+	if current_user : 
+		print(current_user) 
+	if not current_user.is_authenticated:
+		return jsonify(
+			data={},
+			message="No user is logged in",
+			status=401
+		),401
+	else:
+		creator_dict = model_to_dict(current_user)
+		creator_dict.pop('password')
+		return jsonify(
+			data = creator_dict,
+			message = f"Currently logged in with {creator_dict['email']} email address.",
+			status = 200
+		),200
+
+	return '/logged_in route reached, check terminal'
 
 
 
