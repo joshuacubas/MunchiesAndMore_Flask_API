@@ -1,4 +1,4 @@
-from flask import Flask,jsonify
+from flask import Flask,jsonify, g
 from resources.creators import creators
 from resources.recipes import recipes
 import models
@@ -47,8 +47,18 @@ app.register_blueprint(recipes, url_prefix='/api/v1/recipes')
 
 
 
+@app.before_request # use this decorator to cause a function to run before reqs
+def before_request():
+	print("you should see this before each request")
+	g.db = models.DATABASE
+	g.db.connect()
 
 
+@app.after_request
+def after_request(response):
+	print("you should see this after each request")
+	g.db.close()
+	return response
 
 
 
