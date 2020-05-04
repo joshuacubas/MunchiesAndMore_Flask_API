@@ -62,6 +62,17 @@ def after_request(response):
 	return response
 
 
+
+
+
+
+
+
+
+
+
+
+
 if 'ON_HEROKU' in os.environ:
 	print('\non heroku!')
 	models.initialize()
