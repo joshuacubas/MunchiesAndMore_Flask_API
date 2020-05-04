@@ -133,7 +133,7 @@ def show_recipe(id):
 
 	return jsonify(
 		data = recipe_dict,
-		message = f"Found recipe (id:{id})",
+		message = f"Found recipe ('id':{id})",
 		status = 200
 	),200
 
