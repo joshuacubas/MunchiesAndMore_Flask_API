@@ -1,3 +1,4 @@
+import os
 from flask import Flask,jsonify, g
 from resources.creators import creators
 from resources.recipes import recipes
@@ -61,7 +62,9 @@ def after_request(response):
 	return response
 
 
-
+if 'ON_HEROKU' in os.environ:
+	print('\non heroku!')
+	models.initialize()
 
 
 
