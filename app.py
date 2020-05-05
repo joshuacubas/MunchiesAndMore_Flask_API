@@ -38,9 +38,9 @@ def unauthorized():
 
 
 
-CORS(creators, origins=['https://munchiesandmore.herokuapp.com'], supports_credentials=True)
+CORS(creators, origins=['http://localhost:3000','https://munchiesandmore.herokuapp.com'], supports_credentials=True)
 
-CORS(recipes, origins=['https://munchiesandmore.herokuapp.com'], supports_credentials=True)
+CORS(recipes, origins=['http://localhost:3000','https://munchiesandmore.herokuapp.com'], supports_credentials=True)
 
 app.register_blueprint(creators, url_prefix='/api/v1/creators')
 
